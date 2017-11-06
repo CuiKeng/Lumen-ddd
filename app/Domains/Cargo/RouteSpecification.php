@@ -12,20 +12,17 @@ namespace App\Domains\Cargo;
 class RouteSpecification
 {
     /**
-     * 路线起点
-     * 
      * @var string
      */
-    protected $origin;
-    /**
-     * 路线终点
-     * 
-     * @var string
-     */
-    protected $destination;
+    private $origin;
     
     /**
-     * 构造函数
+     * @var string
+     */
+    private $destination;
+    
+    /**
+     * Construct
      * 
      * @param string $origin
      * @param string $destination

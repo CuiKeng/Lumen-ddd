@@ -9,6 +9,9 @@ use App\Domains\Cargo\Cargo;
 use App\Domains\Cargo\RouteSpecification;
 use Illuminate\Support\Facades\DB;
 use App\Domains\Cargo\TrackingId;
+use App\Applications\Booking\Dto\CargoRoutingDto;
+use App\Applications\Booking\Exceptions\CargoNotFoundException;
+use App\Applications\Booking\Assembler\CargoRoutingDtoAssembler;
 
 class BookingService
 {
@@ -29,8 +32,14 @@ class BookingService
     public function createNewCargo(string $origin, string $destination): string
     {
         $trackingId = TrackingId::generate();
-        $routeSpecification = new RouteSpecification($origin, $destination);
-        $cargo = new Cargo($trackingId, $routeSpecification);
+        $routeSpecification = app()->make(RouteSpecification::class, [
+            'origin' => $origin,
+            'destination' => $destination
+        ]);
+        $cargo = app()->make(Cargo::class, [
+            'trackingId' => $trackingId,
+            'routeSpecification' => $routeSpecification
+        ]);
         
         DB::beginTransaction();
         
@@ -44,5 +53,19 @@ class BookingService
         }
         
         return $trackingId->toString();
+    }
+    
+    public function loadCargoForRouting(string $trackingId): CargoRoutingDto
+    {
+        $trackingId = TrackingId::fromString($trackingId);
+        
+        $cargo = $this->cargoRepository->get($trackingId);
+        if (! $cargo) {
+            throw CargoNotFoundException::forTrackingId($trackingId);
+        }
+        
+        $cargoRoutingDtoAssembler = app()->make(CargoRoutingDtoAssembler::class);
+        
+        return $cargoRoutingDtoAssembler->toDto($cargo);
     }
 }

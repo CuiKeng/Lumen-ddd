@@ -18,7 +18,7 @@ class TrackingId
     private $uuid;
     
     /**
-     * 构造函数
+     * Construct
      * 
      * @param UuidInterface $uuid
      */

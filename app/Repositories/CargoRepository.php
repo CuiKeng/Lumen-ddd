@@ -5,9 +5,16 @@ namespace App\Repositories;
 use App\Contracts\Repositories\CargoRepositoryInterface;
 use App\Domains\Cargo\Cargo;
 use Illuminate\Support\Facades\DB;
+use App\Domains\Cargo\TrackingId;
+use App\Domains\Cargo\RouteSpecification;
 
 class CargoRepository implements CargoRepositoryInterface
-{    
+{   
+    /**
+     * 保存货运数据
+     * 
+     * @param Cargo $cargo
+     */
     public function insert(Cargo $cargo)
     {
         DB::table('cargo')->insert([
@@ -18,8 +25,27 @@ class CargoRepository implements CargoRepositoryInterface
         ]);
     }
     
-    public function get()
+    /**
+     * 根据货运单号获取货运数据
+     * 
+     * @param TrackingId $trackingId
+     */
+    public function get(TrackingId $trackingId)
     {
+        $cargoCollection = DB::table('cargo')->where('tracking_id', $trackingId->toString())->first();
+        if (!$cargoCollection) {
+            return null;
+        }
         
+        $routeSpecification = app()->make(RouteSpecification::class, [
+            'origin' => $cargoCollection->route_origin,
+            'destination' => $cargoCollection->route_destination
+        ]);
+        $cargo = app()->make(Cargo::class, [
+            'trackingId' => TrackingId::fromString($cargoCollection->tracking_id),
+            'routeSpecification' => $routeSpecification
+        ]);
+        
+        return $cargo;
     }
 }

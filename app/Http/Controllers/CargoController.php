@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Applications\Booking\BookingService;
 use Illuminate\Http\Request;
+use App\Applications\Booking\Exceptions\CargoNotFoundException;
 
 class CargoController extends Controller
 {
@@ -21,6 +22,12 @@ class CargoController extends Controller
     
     public function getCargo(string $trackingId, BookingService $bookService)
     {
-        
+        try {
+            $cargoRoutingDto = $bookService->loadCargoForRouting($trackingId);
+            
+            return response()->json($cargoRoutingDto->getArrayCopy());
+        } catch (CargoNotFoundException $e) {
+            return response()->json([], 404);
+        }
     }
 }

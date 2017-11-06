@@ -10,37 +10,54 @@ namespace App\Domains\Cargo;
 class Cargo
 {
     /**
-     * 货运单号
-     * 
      * @var TrackingId
      */
-    protected $trackingId;
-    /**
-     * 货运路线
-     * 
-     * @var RouteSpecification
-     */
-    protected $routeSpecification;
+    private $trackingId;
     
     /**
-     * 构造函数
+     * @var RouteSpecification
+     */
+    private $routeSpecification;
+    
+    /**
+     * @var Itinerary
+     */
+    private $itinerary;
+    
+    /**
+     * Construct
      * 
      * @param TrackingId $trackingId
      * @param RouteSpecification $routeSpecification
      */
-    public function __construct(TrackingId $trackingId, RouteSpecification $routeSpecification)
+    public function __construct(TrackingId $trackingId, RouteSpecification $routeSpecification, Itinerary $itinerary = null)
     {
         $this->trackingId = $trackingId;
         $this->routeSpecification = $routeSpecification;
+        $this->itinerary = is_null($itinerary) ? app()->make(Itinerary::class, ['legs' => []]) : $itinerary;
     }
     
+    /**
+     * @return \App\Domains\Cargo\TrackingId
+     */
     public function getTrackingId()
     {
         return $this->trackingId;
     }
     
+    /**
+     * @return \App\Domains\Cargo\RouteSpecification
+     */
     public function getRouteSpecification()
     {
         return $this->routeSpecification;
+    }
+    
+    /**
+     * @return \App\Domains\Cargo\Itinerary
+     */
+    public function getItinerary()
+    {
+        return $this->itinerary;
     }
 }
