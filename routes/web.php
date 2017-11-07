@@ -17,3 +17,4 @@ $router->get('/', function () use ($router) {
 
 $router->post('cargo', 'CargoController@create');
 $router->get('cargos/{trackingId}', 'CargoController@getCargo');
+$router->get('cargos', 'CargoController@getCargos');

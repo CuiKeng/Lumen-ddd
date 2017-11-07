@@ -32,20 +32,41 @@ class CargoRepository implements CargoRepositoryInterface
      */
     public function get(TrackingId $trackingId)
     {
-        $cargoCollection = DB::table('cargo')->where('tracking_id', $trackingId->toString())->first();
-        if (!$cargoCollection) {
+        $item = DB::table('cargo')->where('tracking_id', $trackingId->toString())->first();
+        if (!$item) {
             return null;
         }
         
         $routeSpecification = app()->make(RouteSpecification::class, [
-            'origin' => $cargoCollection->route_origin,
-            'destination' => $cargoCollection->route_destination
+            'origin' => $item->route_origin,
+            'destination' => $item->route_destination
         ]);
         $cargo = app()->make(Cargo::class, [
-            'trackingId' => TrackingId::fromString($cargoCollection->tracking_id),
+            'trackingId' => TrackingId::fromString($item->tracking_id),
             'routeSpecification' => $routeSpecification
         ]);
         
         return $cargo;
+    }
+    
+    /**
+     * 获取所有货运数据
+     */
+    public function getAll()
+    {
+        $items = DB::table('cargo')->get()->all();
+        
+        return array_map(function ($item) {
+            $routeSpecification = app()->make(RouteSpecification::class, [
+                'origin' => $item->route_origin,
+                'destination' => $item->route_destination
+            ]);
+            $cargo = app()->make(Cargo::class, [
+                'trackingId' => TrackingId::fromString($item->tracking_id),
+                'routeSpecification' => $routeSpecification
+            ]);
+            
+            return $cargo;
+        }, $items);
     }
 }

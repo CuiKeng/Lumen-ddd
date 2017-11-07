@@ -68,4 +68,13 @@ class BookingService
         
         return $cargoRoutingDtoAssembler->toDto($cargo);
     }
+    
+    public function listAllCargos(): array
+    {
+        $cargoRoutingDtoAssembler = app()->make(CargoRoutingDtoAssembler::class);
+        
+        return array_map(function (Cargo $cargo) use ($cargoRoutingDtoAssembler) {
+            return $cargoRoutingDtoAssembler->toDto($cargo);
+        }, $this->cargoRepository->getAll());
+    }
 }
