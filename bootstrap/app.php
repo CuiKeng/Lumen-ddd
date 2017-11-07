@@ -40,7 +40,7 @@ $app->withFacades();
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
+    App\Exception\Handler::class
 );
 
 $app->singleton(
@@ -78,10 +78,10 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
-$app->register(App\Providers\DomainServiceProvider::class);
+// $app->register(App\Provider\AppServiceProvider::class);
+// $app->register(App\Provider\AuthServiceProvider::class);
+// $app->register(App\Provider\EventServiceProvider::class);
+$app->register(App\Provider\DomainServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ $app->register(App\Providers\DomainServiceProvider::class);
 */
 
 $app->router->group([
-    'namespace' => 'App\Http\Controllers',
+    'namespace' => 'App\Http\Controller',
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
