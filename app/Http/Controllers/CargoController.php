@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Applications\Booking\BookingService;
 use Illuminate\Http\Request;
 use App\Applications\Booking\Exceptions\CargoNotFoundException;
+use App\Http\Exceptions\NotFoundHttpException;
 
 class CargoController extends Controller
 {
@@ -27,7 +28,7 @@ class CargoController extends Controller
             
             return response()->json($cargoRoutingDto->getArrayCopy());
         } catch (CargoNotFoundException $e) {
-            return response()->json([], 404);
+            throw new NotFoundHttpException($e->getMessage());
         }
     }
 }
