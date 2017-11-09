@@ -26,7 +26,7 @@ class DoctrineServiceProvider extends ServiceProvider
                 'password' => '',
                 'dbname' => 'domain-lumen',
                 'charset' => 'utf8mb4'
-            ], Setup::createXMLMetadataConfiguration([app()->path() . '/Persistence/Doctrine/ORM']));
+            ], Setup::createXMLMetadataConfiguration([app()->path() . '/Persistence/Doctrine/Mapping']));
         });
         
         if (! Type::hasType(CargoItineraryLegsType::TYPE_NAME)) {
