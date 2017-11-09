@@ -76,8 +76,7 @@ class CargoRoutingDto
     {
         $legsArrayCopy = [];
         
-        foreach ($this->getLegs() as $leg)
-        {
+        foreach ($this->getLegs() as $leg) {
             $legsArrayCopy[] = [
                 'load_location' => $leg->getLoadLocation(),
                 'unload_location' => $leg->getUnloadLocation(),

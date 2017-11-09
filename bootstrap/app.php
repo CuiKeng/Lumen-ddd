@@ -82,6 +82,7 @@ $app->singleton(
 // $app->register(App\Provider\AuthServiceProvider::class);
 // $app->register(App\Provider\EventServiceProvider::class);
 $app->register(App\Provider\DomainServiceProvider::class);
+$app->register(App\Provider\DoctrineServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

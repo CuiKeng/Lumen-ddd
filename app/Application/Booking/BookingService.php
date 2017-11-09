@@ -12,6 +12,8 @@ use App\Domain\Cargo\TrackingId;
 use App\Application\Booking\Dto\CargoRoutingDto;
 use App\Application\Booking\Exception\CargoNotFoundException;
 use App\Application\Booking\Assembler\CargoRoutingDtoAssembler;
+use App\Application\Booking\Dto\ItineraryDto;
+use App\Application\Booking\Assembler\ItineraryDtoAssembler;
 
 class BookingService
 {
@@ -44,7 +46,7 @@ class BookingService
         DB::beginTransaction();
         
         try {
-            $this->cargoRepository->insert($cargo);
+            $this->cargoRepository->save($cargo);
             
             DB::commit();
         } catch (\Exception $e) {
@@ -55,6 +57,11 @@ class BookingService
         return $trackingId->toString();
     }
     
+    /**
+     * 根据货运单号获取货运
+     * 
+     * @param string $trackingId
+     */
     public function loadCargoForRouting(string $trackingId): CargoRoutingDto
     {
         $trackingId = TrackingId::fromString($trackingId);
@@ -69,6 +76,9 @@ class BookingService
         return $cargoRoutingDtoAssembler->toDto($cargo);
     }
     
+    /**
+     * 所有货运
+     */
     public function listAllCargos(): array
     {
         $cargoRoutingDtoAssembler = app()->make(CargoRoutingDtoAssembler::class);
@@ -76,5 +86,38 @@ class BookingService
         return array_map(function (Cargo $cargo) use ($cargoRoutingDtoAssembler) {
             return $cargoRoutingDtoAssembler->toDto($cargo);
         }, $this->cargoRepository->getAll());
+    }
+    
+    /**
+     * 分配货运路线
+     * 
+     * @param string $trackingId
+     * @param ItineraryDto $itineraryDto
+     */
+    public function assignCargoToRoute(string $trackingId, ItineraryDto $itineraryDto): void
+    {
+        $trackingId = TrackingId::fromString($trackingId);
+        
+        $cargo = $this->cargoRepository->get($trackingId);
+        if (! $cargo) {
+            throw CargoNotFoundException::forTrackingId($trackingId);
+        }
+        
+        $itineraryDtoAssembler = app()->make(ItineraryDtoAssembler::class);
+        
+        $itinerary = $itineraryDtoAssembler->toItinerary($itineraryDto);
+        
+        DB::beginTransaction();
+        
+        try {
+            $cargo->assignToRoute($itinerary);
+            
+            $this->cargoRepository->store($cargo);
+        
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 }

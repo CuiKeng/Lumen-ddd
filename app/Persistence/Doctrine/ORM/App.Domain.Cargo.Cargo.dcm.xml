@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Domain\Cargo\Cargo"
+            table="cargo" 
+            repository-class="App\Persistence\Doctrine\CargoRepository">
+        <id name="trackingId" type="cargo_tracking_id" column="tracking_id" />
+        <embedded name="routeSpecification" class="App\Domain\Cargo\RouteSpecification" column-prefix="route_" />
+        <embedded name="itinerary" class="App\Domain\Cargo\Itinerary" column-prefix="itinerary_" />
+    </entity>
+</doctrine-mapping>

@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
-    {
+    {throw $e;
         $fe = FlattenException::create($e);
         
         return response()->json(['message' => $fe->getMessage()], $fe->getStatusCode());

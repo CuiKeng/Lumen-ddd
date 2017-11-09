@@ -34,7 +34,7 @@ class Cargo
     {
         $this->trackingId = $trackingId;
         $this->routeSpecification = $routeSpecification;
-        $this->itinerary = is_null($itinerary) ? app()->make(Itinerary::class, ['legs' => []]) : $itinerary;
+        $this->setItinerary($itinerary);
     }
     
     /**
@@ -59,5 +59,22 @@ class Cargo
     public function getItinerary()
     {
         return $this->itinerary;
+    }
+    
+    /**
+     * @param Itinerary $itinerary
+     */
+    public function assignToRoute(Itinerary $itinerary)
+    {
+        $this->itinerary = $itinerary;
+    }
+    
+    private function setItinerary($itinerary)
+    {
+        if (! $itinerary instanceof Itinerary) {
+            $this->itinerary = app()->make(Itinerary::class, ['legs' => []]);
+        } else {
+            $this->itinerary = $itinerary;
+        }
     }
 }

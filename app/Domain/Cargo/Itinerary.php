@@ -7,7 +7,7 @@ class Itinerary
     /**
      * @var Leg[]
      */
-    private $legs;
+    private $legs = [];
     
     /**
      * Construct

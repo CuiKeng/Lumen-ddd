@@ -15,6 +15,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post('cargo', 'CargoController@create');
+$router->post('cargos', 'CargoController@create');
 $router->get('cargos/{trackingId}', 'CargoController@getCargo');
 $router->get('cargos', 'CargoController@getCargos');
+$router->put('cargos/{trackingId}', 'CargoController@update');

@@ -18,8 +18,7 @@ class CargoRoutingDtoAssembler
     {
         $legs = [];
         
-        foreach ($cargo->getItinerary()->getLegs() as $leg)
-        {
+        foreach ($cargo->getItinerary()->getLegs() as $leg) {
             $legs[] = app()->make(LegDto::class, [
                 'loadLocation' => $leg->getLoadLocation(),
                 'unloadLocation' => $leg->getUnloadLocation(),
