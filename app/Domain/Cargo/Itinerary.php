@@ -2,7 +2,9 @@
 
 namespace App\Domain\Cargo;
 
-class Itinerary
+use App\Contract\Domain\Entity;
+
+class Itinerary implements Entity
 {
     /**
      * @var Leg[]

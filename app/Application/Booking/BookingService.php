@@ -7,7 +7,6 @@ namespace App\Application\Booking;
 use App\Contract\Repository\CargoRepositoryInterface;
 use App\Domain\Cargo\Cargo;
 use App\Domain\Cargo\RouteSpecification;
-use Illuminate\Support\Facades\DB;
 use App\Domain\Cargo\TrackingId;
 use App\Application\Booking\Dto\CargoRoutingDto;
 use App\Application\Booking\Exception\CargoNotFoundException;
@@ -43,16 +42,7 @@ class BookingService
             'routeSpecification' => $routeSpecification
         ]);
         
-        DB::beginTransaction();
-        
-        try {
-            $this->cargoRepository->save($cargo);
-            
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
-        }
+        $this->cargoRepository->store($cargo);
         
         return $trackingId->toString();
     }
@@ -107,17 +97,8 @@ class BookingService
         
         $itinerary = $itineraryDtoAssembler->toItinerary($itineraryDto);
         
-        DB::beginTransaction();
+        $cargo->assignToRoute($itinerary);
         
-        try {
-            $cargo->assignToRoute($itinerary);
-            
-            $this->cargoRepository->store($cargo);
-        
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
-        }
+        $this->cargoRepository->store($cargo);
     }
 }

@@ -4,13 +4,9 @@ namespace App\Domain\Cargo;
 
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Uuid;
+use App\Contract\Domain\ValueObject;
 
-/**
- * 货运单号
- * 
- * @author cuikeng
- */
-class TrackingId
+class TrackingId implements ValueObject
 {
     /**
      * @var Uuid

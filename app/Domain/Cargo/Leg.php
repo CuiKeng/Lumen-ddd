@@ -4,7 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Domain\Cargo;
 
-class Leg
+use App\Contract\Domain\Entity;
+
+class Leg implements Entity
 {
     /**
      * @var string

@@ -4,12 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Domain\Cargo;
 
-/**
- * 路线
- * 
- * @author cuikeng
- */
-class RouteSpecification
+use App\Contract\Domain\Entity;
+
+class RouteSpecification implements Entity
 {
     /**
      * @var string

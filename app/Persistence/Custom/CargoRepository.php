@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Persistence\Custom;
 
 use App\Contract\Repository\CargoRepositoryInterface;
 use App\Domain\Cargo\Cargo;
@@ -17,7 +17,6 @@ class CargoRepository implements CargoRepositoryInterface
         DB::table('cargo')->updateOrInsert([
             'tracking_id' => $cargo->getTrackingId()->toString()
         ], [
-            'origin' => $cargo->getRouteSpecification()->getOrigin(),
             'route_origin' => $cargo->getRouteSpecification()->getOrigin(),
             'route_destination' => $cargo->getRouteSpecification()->getDestination(),
             'itinerary_legs' => json_encode(array_map(function (Leg $leg) {

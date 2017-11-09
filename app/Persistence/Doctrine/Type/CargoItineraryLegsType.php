@@ -18,7 +18,7 @@ class CargoItineraryLegsType extends Type
     
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        if (is_null($value)) {
+        if (empty($value)) {
             return '';
         }
         

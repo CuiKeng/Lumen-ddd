@@ -2,12 +2,9 @@
 
 namespace App\Domain\Cargo;
 
-/**
- * 货运
- * 
- * @author cuikeng
- */
-class Cargo
+use App\Contract\Domain\Entity;
+
+class Cargo implements Entity
 {
     /**
      * @var TrackingId
