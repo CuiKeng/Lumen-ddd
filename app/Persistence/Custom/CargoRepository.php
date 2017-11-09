@@ -2,7 +2,7 @@
 
 namespace App\Persistence\Custom;
 
-use App\Contract\Repository\CargoRepositoryInterface;
+use App\Domain\Cargo\CargoRepositoryInterface;
 use App\Domain\Cargo\Cargo;
 use Illuminate\Support\Facades\DB;
 use App\Domain\Cargo\TrackingId;

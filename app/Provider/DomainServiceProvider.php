@@ -3,7 +3,7 @@
 namespace App\Provider;
 
 use Illuminate\Support\ServiceProvider;
-use App\Contract\Repository\CargoRepositoryInterface;
+use App\Domain\Cargo\CargoRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DomainServiceProvider extends ServiceProvider

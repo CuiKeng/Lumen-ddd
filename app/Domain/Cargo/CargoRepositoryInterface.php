@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contract\Repository;
+namespace App\Domain\Cargo;
 
 interface CargoRepositoryInterface
 {

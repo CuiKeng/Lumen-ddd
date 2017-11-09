@@ -2,9 +2,9 @@
 
 namespace App\Domain\Cargo;
 
-use App\Contract\Domain\Entity;
+use App\Domain\Aggregate;
 
-class Cargo implements Entity
+class Cargo implements Aggregate
 {
     /**
      * @var TrackingId

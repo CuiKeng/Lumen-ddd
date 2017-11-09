@@ -3,7 +3,7 @@
 namespace App\Persistence\Doctrine;
 
 use Doctrine\ORM\EntityRepository;
-use App\Contract\Repository\LocationRepositoryInterface;
+use App\Domain\Location\LocationRepositoryInterface;
 
 class LocationRepository extends EntityRepository implements LocationRepositoryInterface
 {

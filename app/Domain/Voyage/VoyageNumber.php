@@ -2,7 +2,7 @@
 
 namespace App\Domain\Location;
 
-use App\Contract\Domain\ValueObject;
+use App\Domain\ValueObject;
 
 class VoyageNumber implements ValueObject
 {

@@ -2,9 +2,9 @@
 
 namespace App\Domain\Location;
 
-use App\Contract\Domain\Entity;
+use App\Domain\Aggregate;
 
-class Voyage implements Entity
+class Voyage implements Aggregate
 {
     /**
      * @var VoyageNumber

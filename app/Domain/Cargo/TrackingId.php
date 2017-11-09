@@ -4,7 +4,7 @@ namespace App\Domain\Cargo;
 
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Uuid;
-use App\Contract\Domain\ValueObject;
+use App\Domain\ValueObject;
 
 class TrackingId implements ValueObject
 {

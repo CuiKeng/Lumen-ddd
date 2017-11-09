@@ -5,7 +5,7 @@ namespace App\Persistence\Doctrine;
 use Doctrine\ORM\EntityRepository;
 use App\Domain\Cargo\TrackingId;
 use App\Domain\Cargo\Cargo;
-use App\Contract\Repository\CargoRepositoryInterface;
+use App\Domain\Cargo\CargoRepositoryInterface;
 
 class CargoRepository extends EntityRepository implements CargoRepositoryInterface
 {

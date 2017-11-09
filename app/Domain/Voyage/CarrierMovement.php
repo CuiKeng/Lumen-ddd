@@ -2,9 +2,9 @@
 
 namespace App\Domain\Location;
 
-use App\Contract\Domain\Entity;
+use App\Domain\Aggregate;
 
-class CarrierMovement implements Entity
+class CarrierMovement implements Aggregate
 {
     /**
      * @var Location

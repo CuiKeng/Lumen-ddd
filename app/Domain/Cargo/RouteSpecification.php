@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Domain\Cargo;
 
-use App\Contract\Domain\Entity;
+use App\Domain\Aggregate;
 
-class RouteSpecification implements Entity
+class RouteSpecification implements Aggregate
 {
     /**
      * @var string

@@ -2,9 +2,9 @@
 
 namespace App\Domain\Location;
 
-use App\Contract\Domain\Entity;
+use App\Domain\Aggregate;
 
-class Location implements Entity
+class Location implements Aggregate
 {
     /**
      * @var UnLocode

@@ -2,9 +2,9 @@
 
 namespace App\Domain\Location;
 
-use App\Contract\Domain\Entity;
+use App\Domain\ValueObject;
 
-class UnLocode implements Entity
+class UnLocode implements ValueObject
 {
     /**
      * @var string 港口代码

@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Domain\Cargo;
 
-use App\Contract\Domain\Entity;
+use App\Domain\Aggregate;
 
-class Leg implements Entity
+class Leg implements Aggregate
 {
     /**
      * @var string

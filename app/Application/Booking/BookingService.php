@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Application\Booking;
 
-use App\Contract\Repository\CargoRepositoryInterface;
+use App\Domain\Cargo\CargoRepositoryInterface;
 use App\Domain\Cargo\Cargo;
 use App\Domain\Cargo\RouteSpecification;
 use App\Domain\Cargo\TrackingId;

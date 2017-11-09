@@ -2,9 +2,9 @@
 
 namespace App\Domain\Location;
 
-use App\Contract\Domain\Entity;
+use App\Domain\Aggregate;
 
-class Schedule implements Entity
+class Schedule implements Aggregate
 {
     /**
      * @var array

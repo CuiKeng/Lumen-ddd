@@ -2,9 +2,9 @@
 
 namespace App\Domain\Cargo;
 
-use App\Contract\Domain\Entity;
+use App\Domain\Aggregate;
 
-class Itinerary implements Entity
+class Itinerary implements Aggregate
 {
     /**
      * @var Leg[]
