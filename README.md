@@ -20,6 +20,10 @@ $ composer install
 
 Edit the `config/database.php` file to suit your needs.
 
+### Configure the cache information
+
+Edit the `config/cache.php` file to suit your needs.
+
 ### Run the migrations
 
 ```
